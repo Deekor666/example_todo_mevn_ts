@@ -5,15 +5,17 @@ const repository = require('../repositories/TodoRepository');
 
 app.get('/', (req, res) => {
 	repository.findAll().then((todos) => {
+		res.set('Access-Control-Allow-Origin', '*');
 		res.json(todos);
 	}).catch((error) => console.log(error));
 });
 
 app.post('/', (req, res) => {
-        const { name } = req.body;
+    const { name } = req.body;
 	repository.create(name).then((todo) => {
-                res.json(todo);
-        }).catch((error) => console.log(error));
+		res.set('Access-Control-Allow-Origin', '*');
+    	res.json(todo);
+    }).catch((error) => console.log(error));
 });
 
 app.put('/:id', (req, res) => {
